@@ -120,11 +120,11 @@ dfs = pull_google_drive(url)
 def player_performance():
     st.title('Historical Player Performance')
 
-    play_exp = st.beta_expander('Annual Player Performance', expanded=True)
+    play_exp = st.expander('Annual Player Performance', expanded=True)
     with play_exp:
         st.write('<br>', unsafe_allow_html=True)
 
-        col1, sp, col2, sp, col3 = st.beta_columns((.2,.02,.35,.02,.35))
+        col1, sp, col2, sp, col3 = st.columns((.2,.02,.35,.02,.35))
         metric_sel = col1.radio('PAR metric to use', options=['Total PAR','Average PAR'], index=0)
         yr_pick = col2.selectbox('Year to view', options=sorted(dfs.yr.unique())[::-1], index=0)
         type_sel = col3.selectbox('View filter',
@@ -286,7 +286,7 @@ def player_performance():
                  f'Note that the number of games played has a large impact on Total PAR, but not Average PAR.',
                  unsafe_allow_html=True)
 
-    table_exp = st.beta_expander('Player History Table', expanded=True)
+    table_exp = st.expander('Player History Table', expanded=True)
     with table_exp:
         hist_sel = st.multiselect(label='View years',
                                   options=['All'] + sorted(dfs.yr.unique().tolist()),
@@ -323,9 +323,9 @@ def pick_performance():
     st.title('Historical Picks')
 
     # LOOK AT PICK PERFORMANCE
-    pickperf = st.beta_expander('Pick Performance', expanded=True)
+    pickperf = st.expander('Pick Performance', expanded=True)
     with pickperf:
-        pick1, space, pick2, space2 = st.beta_columns((.15, .02, .2, .3))
+        pick1, space, pick2, space2 = st.columns((.15, .02, .2, .3))
         cutoff_sel = pick2.number_input('Pick # cutoff',
                                      min_value=1,
                                      max_value=dfs.pick.max(),
@@ -372,7 +372,7 @@ def pick_performance():
     byteam.columns = [f"{x[0]}_{x[1]}" for x in byteam.columns]
     byteam = byteam.reset_index()
 
-    team_exp = st.beta_expander('Pick History By Team', expanded=True)
+    team_exp = st.expander('Pick History By Team', expanded=True)
     with team_exp:
         team_abr = st.selectbox('Team to view', options=sorted(dfs.team.unique()), index=21)
 
@@ -407,7 +407,7 @@ def pick_performance():
                                                           'Each data point represents a single drafted player. '
                                                           'Hover over a data point to see more information about that draft pick.')
 
-    yr_exp = st.beta_expander('Pick History By Year', expanded=True)
+    yr_exp = st.expander('Pick History By Year', expanded=True)
     with yr_exp:
         yr_pick = st.selectbox('Year to view', options=sorted(dfs.yr.unique())[::-1], index=0)
 
@@ -466,9 +466,9 @@ def manager_performance():
     rankdf['cnt'] = rankdf['cnt'].astype(int)
     rankdf['rank'] = rankdf['rank'].astype(str)
 
-    point_exp = st.beta_expander('Historical PAR', expanded=True)
+    point_exp = st.expander('Historical PAR', expanded=True)
     with point_exp:
-        point1, space, point2 = st.beta_columns((.18,.02,1))
+        point1, space, point2 = st.columns((.18,.02,1))
 
         point_sel = point1.radio('Point metric to view', options=['Average PAR', 'Total PAR'], index=0)
 
@@ -561,7 +561,7 @@ def manager_performance():
                      'The grey bars represent how many drafts that manager participated in and has a large impact on '
                      'a manager\'s total PAR value.')
 
-    point_diff = st.beta_expander('Actual vs Expected Total PAR', expanded=True)
+    point_diff = st.expander('Actual vs Expected Total PAR', expanded=True)
     with point_diff:
         man_sel = st.selectbox('Manager to view',
                                options=sorted(sorted(rankdf.manager.unique())),
@@ -704,7 +704,7 @@ def manager_performance():
                  'and expected '
                  'total PARs per player are then summed to get the final comparison by year.', unsafe_allow_html=True)
 
-    manage_exp = st.beta_expander('Historical Standings', expanded=True)
+    manage_exp = st.expander('Historical Standings', expanded=True)
     with manage_exp:
         managers_sel = st.multiselect('Compare managers',
                                       options=sorted(rankdf.manager.unique()),
