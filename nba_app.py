@@ -61,7 +61,7 @@ TEAM_COLORS={'MIL':['#00471B','#EEE1C6'],
             }
 
 # function to get file from google drive
-@st.cache
+@st.cache_data
 def pull_google_drive(url):
     file_id = url.split('/')[-2]
     dwn_url = "https://drive.google.com/uc?id=" + file_id
